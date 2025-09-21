@@ -1,0 +1,18 @@
+name: Test git action when PR to dev
+
+on:
+  push:
+    branches:
+      - dev
+    pull_request:
+      - dev
+
+jobs:
+  test:
+    run-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run simple test
+        run: echo "✅ GitHub Action triggered successfully on branch dev"
