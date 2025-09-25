@@ -26,6 +26,7 @@ jobs:
           echo "PR number: ${{ github.event.pull_request.number }}"
           echo "Head ref: ${{ github.head_ref }}"
           echo "Base ref: ${{ github.base_ref }}"
+           echo "Base ref: ${{ secrets.SONAR_TOKEN }}
 
       - uses: actions/checkout@v4
       - name: SonarQube Scan
