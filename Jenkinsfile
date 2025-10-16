@@ -15,7 +15,13 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                echo "Current branch: ${env.BRANCH_NAME}"
+                script {
+                    env.BRANCH_NAME = sh(
+                        returnStdout: true, 
+                        script: "git rev-parse --abbrev-ref HEAD"
+                    ).trim()
+                    echo "Current branch: ${env.BRANCH_NAME}"
+                }
             }
         }
         
@@ -33,10 +39,7 @@ pipeline {
         
         stage('Push to Docker Hub') {
             when {
-                anyOf {
-                    branch 'jenkins-piple'
-                    branch 'origin/jenkins-piple'
-                }
+                expression { env.BRANCH_NAME == 'jenkins-piple' }
             }
             steps {
                 script {
