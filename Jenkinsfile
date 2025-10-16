@@ -20,7 +20,7 @@ pipeline {
                         returnStdout: true, 
                         script: "git rev-parse --abbrev-ref HEAD"
                     ).trim()
-                    echo "Current branch: ${env.BRANCH_NAME}"
+                    echo "Current branch 222222: ${env.BRANCH_NAME}"
                 }
             }
         }
@@ -38,6 +38,7 @@ pipeline {
         }
         
         stage('Push to Docker Hub') {
+            echo "Current branch 333333: ${env.BRANCH_NAME}"
             when {
                 expression { env.BRANCH_NAME == 'jenkins-piple' }
             }
