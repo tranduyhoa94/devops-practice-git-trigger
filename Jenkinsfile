@@ -16,11 +16,10 @@ pipeline {
             steps {
                 checkout scm
                 script {
-                    env.BRANCH_NAME = sh(
-                        returnStdout: true, 
-                        script: "git rev-parse --abbrev-ref HEAD"
-                    ).trim()
-                    echo "Current branch 222222: ${env.BRANCH_NAME}"
+                    // Dùng biến Jenkins thay vì git command
+                    echo "Current branch: ${env.BRANCH_NAME}"
+                    echo "Git branch: ${env.GIT_BRANCH}"
+                    echo "Change request: ${env.CHANGE_TARGET ?: 'N/A'}"
                 }
             }
         }
@@ -39,7 +38,14 @@ pipeline {
         
         stage('Push to Docker Hub') {
             when {
-                expression { env.BRANCH_NAME == 'jenkins-piple' }
+                anyOf {
+                    branch 'jenkins-piple'
+                    expression { 
+                        env.GIT_BRANCH == 'origin/jenkins-piple' || 
+                        env.BRANCH_NAME == 'jenkins-piple' ||
+                        env.CHANGE_TARGET == 'jenkins-piple'
+                    }
+                }
             }
             steps {
                 script {
