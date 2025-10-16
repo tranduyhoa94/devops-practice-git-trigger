@@ -33,8 +33,7 @@ pipeline {
         stage('Push to Docker Hub') {
             when {
                 anyOf {
-                    branch 'main'
-                    branch 'master'
+                    branch 'jenkins-piple'
                 }
             }
             steps {
