@@ -34,6 +34,7 @@ pipeline {
             when {
                 anyOf {
                     branch 'jenkins-piple'
+                    branch 'origin/jenkins-piple'
                 }
             }
             steps {
