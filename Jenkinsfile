@@ -2,7 +2,7 @@ pipeline {
     agent { label 'docker-host-agent' }
     
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('20bf1bb7-a767-4d66-85d9-8b4853589f9f')
+        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
         DOCKER_IMAGE_NAME = 'hoatd/demo-app'
         DOCKER_TAG = "${env.BUILD_NUMBER}-${env.GIT_COMMIT[0..7]}"
     }
@@ -38,7 +38,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', '20bf1bb7-a767-4d66-85d9-8b4853589f9f') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                         docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_TAG}").push()
                         docker.image("${DOCKER_IMAGE_NAME}:latest").push()
                     }
