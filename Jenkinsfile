@@ -15,6 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                echo "Current branch: ${env.BRANCH_NAME}"
             }
         }
         
