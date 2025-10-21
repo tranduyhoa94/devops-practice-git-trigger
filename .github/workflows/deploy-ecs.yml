@@ -31,6 +31,12 @@ jobs:
         run: |
           echo "Checking AWS identity..."
           aws sts get-caller-identity
+          
+          echo "Testing ECR access..."
+          aws ecr describe-repositories --region ${{ secrets.AWS_REGION }}
+          
+          echo "Testing ECR login..."
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | head -c 20
 
       - name: Login to Amazon ECR
         id: login-ecr
