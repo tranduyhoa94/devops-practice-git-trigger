@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => {
-  res.send('Hello from Docker by Hoa update 3! 🐳');
+  res.send('Hello from Docker by Hoa update 4! 🐳');
 });
 
 app.get('/health', (req, res) => {
